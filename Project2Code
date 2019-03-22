@@ -1,0 +1,54 @@
+/* Bernard Li. Li industrial Technologies. Team 24, University of Houston, MECE2361
+
+
+*/
+
+
+#include <Servo.h>
+
+Servo LiftServo;
+Servo DoorServo;
+int buttonpin = 4; // put your button on this pin;
+int liftime = 3000;
+int requestedelay = 10000;
+int musictimer = 300;
+bool buttonpress = false;
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  LiftServo.attach(11); //lift servo on this pin;
+  DoorServo.attach(3); // door servo on this pin;
+  pinMode(buttonpin, INPUT);
+  Serial.println("Boot Ok. Type SM standing by");
+  
+  DoorServo.write(90);
+  LiftServo.write(90);
+
+  Serial.println("Motors Centered");
+  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+      int buttonstate = digitalRead(buttonpin);
+      
+      if (buttonstate == HIGH && buttonpress == false) {
+        Serial.println("Motors Pressed");
+        LiftServo.write(180);
+        delay(liftime);
+        LiftServo.write(90);
+        delay(requestedelay);
+        DoorServo.write(180);
+        delay(musictimer);
+        buttonpress = true;
+      }
+      else if(buttonstate == HIGH && buttonpress == true) {
+        Serial.println("reset pressed");
+        LiftServo.write(0);
+        delay(liftime);
+        LiftServo.write(90);
+        DoorServo.write(90);
+        buttonpress = false;
+      }
+}
