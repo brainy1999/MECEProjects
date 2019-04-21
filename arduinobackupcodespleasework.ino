@@ -1,3 +1,8 @@
+/* Li Industrial Technologies
+ *  Advanced Color detection software
+ *  Will probably be made into a library at some point
+ *  
+ */
 #include <Servo.h>
 #define S0 4
 #define S1 5
