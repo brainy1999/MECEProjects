@@ -1,3 +1,8 @@
+/* Li industrial technologies. Last save 4/16/19
+ *  
+ *  
+ */
+
 #include <Servo.h>
 #define S0 4
 #define S1 5
@@ -39,7 +44,7 @@ void setup() {
   Servo3.attach(servo3pin);
 
   //resets servos
-  Windmill.write(90);
+  Windmill.write(0);
   Servo2.write(180);
   Servo3.write(180);
   
@@ -108,51 +113,51 @@ void loop() {
   int delaytime = 500;
   
   if(avred > avgreen && avred > avblue && avred <= 45 && avgreen <= 45 && avblue <= 45) { //detect white
-    Windmill.write(0);
+    Windmill.write(90);
     Servo2.write(180);
     Servo3.write(90);
     delay(windmilldelay);
-    Windmill.write(90);
+    Windmill.write(0);
     delay(delaytime);
     Servo2.write(180);
     Servo3.write(180);
     Serial.println("Detected WHITE");
   }
   else if(avred >= 90 && avgreen <= 60 && avblue >= 85 && avred > avgreen && avgreen < avblue && avred > avblue) {  //detect red
-    Windmill.write(0);
+    Windmill.write(90);
     Servo2.write(180);
     Servo3.write(90);
     delay(windmilldelay);
-    Windmill.write(90);
+    Windmill.write(0);
     delay(delaytime);
     Servo2.write(180);
     Servo3.write(180);
     Serial.println("Detected RED");
   }
   else if(avred >= 60 && avgreen >= 60 && avblue >= 70 && avgreen < avblue && avred < avblue) {  //detect green
-    Windmill.write(0);
+    Windmill.write(90);
     Servo2.write(180);
     Servo3.write(90);
     delay(windmilldelay);
-    Windmill.write(90);
+    Windmill.write(0);
     delay(delaytime);
     Servo2.write(180);
     Servo3.write(180);
     Serial.println("Detected GREEN");
   }
   else if(avred >= 90 && avgreen >= 80 && avblue >= 50 && avred > avgreen && avgreen > avblue && avred > avblue) {  //detect blue
-    Windmill.write(0);
+    Windmill.write(90);
     Servo2.write(180);
     Servo3.write(90);
     delay(windmilldelay);
-    Windmill.write(90);
+    Windmill.write(0);
     delay(delaytime);
     Servo2.write(180);
     Servo3.write(180);
     Serial.println("Detected BLUE");
   }
   else { //finds nothing
-    Windmill.write(90);
+    Windmill.write(0);
     Servo2.write(180);
     Servo3.write(180);
     Serial.println("Detected NOTHING");
