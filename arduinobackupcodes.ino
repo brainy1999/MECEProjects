@@ -1,6 +1,6 @@
-/* Li industrial technologies. Last save 4/20/19
+/* Li industrial technologies. Last save 4/21/19
  *  
- *  
+ *  last change was motors0
  */
 
 #include <Servo.h>
@@ -24,7 +24,7 @@ int blueval = 0;
 int avred = 0;
 int avgreen = 0;
 int avblue = 0;
-
+  int delaytime = 500;
 //add servos
 Servo Windmill;
 Servo Servo2;
@@ -44,7 +44,7 @@ void setup() {
   Servo3.attach(servo3pin);
 
   //resets servos
-  Windmill.write(0);
+  Windmill.write(38);
   Servo2.write(180);
   Servo3.write(180);
   
@@ -53,6 +53,7 @@ void setup() {
   digitalWrite(S1,LOW);
   
   Serial.begin(9600);
+  delay(delaytime);
 }
 void loop() {
   
@@ -110,14 +111,14 @@ void loop() {
  Serial.println(avblue);
  
   // beginning filtration sequence
-  int delaytime = 500;
+  int delaytime = 800;
   
-  if(avred > avgreen && avred > avblue && avred <= 45 && avgreen <= 45 && avblue <= 45) { //detect white
+  if(avred > avgreen && avred > avblue && avred <= 60 && avgreen <= 60 && avblue <= 60) { //detect white
     Windmill.write(90);
     Servo2.write(180);
-    Servo3.write(90);
+    Servo3.write(180);
     delay(windmilldelay);
-    Windmill.write(0);
+    Windmill.write(38);
     delay(delaytime);
     Servo2.write(180);
     Servo3.write(180);
@@ -125,21 +126,21 @@ void loop() {
   }
   else if(avred >= 90 && avgreen <= 60 && avblue >= 85 && avred > avgreen && avgreen < avblue && avred > avblue) {  //detect red
     Windmill.write(90);
-    Servo2.write(180);
+    Servo2.write(100);
     Servo3.write(90);
     delay(windmilldelay);
-    Windmill.write(0);
+    Windmill.write(38);
     delay(delaytime);
     Servo2.write(180);
     Servo3.write(180);
     Serial.println("Detected RED");
   }
-  else if(avred >= 60 && avgreen >= 60 && avblue >= 70 && avgreen < avblue && avred < avblue) {  //detect green
+  else if(avred >= 60 && avgreen >= 60 && avblue >= 70 && avgreen < avblue && avred < avblue && abs(avblue - avred) >= 5) {  //detect green
     Windmill.write(90);
     Servo2.write(180);
     Servo3.write(90);
     delay(windmilldelay);
-    Windmill.write(0);
+    Windmill.write(38);
     delay(delaytime);
     Servo2.write(180);
     Servo3.write(180);
@@ -148,16 +149,16 @@ void loop() {
   else if(avred >= 90 && avgreen >= 80 && avblue >= 50 && avred > avgreen && avgreen > avblue && avred > avblue) {  //detect blue
     Windmill.write(90);
     Servo2.write(180);
-    Servo3.write(90);
+    Servo3.write(115);
     delay(windmilldelay);
-    Windmill.write(0);
+    Windmill.write(38);
     delay(delaytime);
     Servo2.write(180);
     Servo3.write(180);
     Serial.println("Detected BLUE");
   }
   else { //finds nothing
-    Windmill.write(0);
+    Windmill.write(38);
     Servo2.write(180);
     Servo3.write(180);
     Serial.println("Detected NOTHING");
