@@ -111,7 +111,7 @@ void loop() {
  Serial.println(avblue);
  
   // beginning filtration sequence
-  int delaytime = 800;
+  int delaytime = 400;
   
   if(avred > avgreen && avred > avblue && avred <= 60 && avgreen <= 60 && avblue <= 60) { //detect white
     Windmill.write(90);
@@ -126,7 +126,7 @@ void loop() {
   }
   else if(avred >= 90 && avgreen <= 60 && avblue >= 85 && avred > avgreen && avgreen < avblue && avred > avblue) {  //detect red
     Windmill.write(90);
-    Servo2.write(100);
+    Servo2.write(125);
     Servo3.write(90);
     delay(windmilldelay);
     Windmill.write(38);
@@ -137,7 +137,7 @@ void loop() {
   }
   else if(avred >= 60 && avgreen >= 60 && avblue >= 70 && avgreen < avblue && avred < avblue && abs(avblue - avred) >= 5) {  //detect green
     Windmill.write(90);
-    Servo2.write(180);
+    Servo2.write(100);
     Servo3.write(90);
     delay(windmilldelay);
     Windmill.write(38);
